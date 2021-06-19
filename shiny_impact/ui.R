@@ -22,8 +22,12 @@ shinyUI(fluidPage(
             tags$hr(),
             checkboxInput("header", "Header", TRUE)
         ),
-        mainPanel(
-            tableOutput("contents")
+        mainPanel("insights from data",
+                  fluidRow(
+                        splitLayout(cellWidths = c("30%", "70%"),
+                    tableOutput("contents"),
+                    plotOutput("myPlot")))
+            
                 )
                 )
                 )

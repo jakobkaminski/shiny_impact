@@ -1,0 +1,12 @@
+name: shiny_impact
+title: shiny_impact
+username:
+account: jkaminski
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3963345
+bundleId: 4470467
+url: https://jkaminski.shinyapps.io/shiny_impact/
+when: 1618407168.43635
+asMultiple: FALSE
+asStatic: FALSE

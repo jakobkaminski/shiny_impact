@@ -24,8 +24,8 @@ shinyUI(fluidPage(
         ),
         mainPanel("insights from data",
                   fluidRow(
-                        splitLayout(cellWidths = c("30%", "70%"),
-                    tableOutput("contents"),
+                        splitLayout(cellWidths = c("20%", "80%"),
+                    tableOutput("contents"), 
                     plotOutput("myPlot")))
             
                 )

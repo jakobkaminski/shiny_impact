@@ -11,10 +11,11 @@ library(shiny)
 library(ggplot2)
 library(zoo)
 
+# DT::dataTableOutput("table")output$contents <- DT::renderDataTable({ gapminder })
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-    output$contents <- renderTable({
+    output$contents <- renderTable(caption="raw data as tabular",{
         # input$file1 will be NULL initially. After the user selects
         # and uploads a file, it will be a data frame with 'name',
         # 'size', 'type', and 'datapath' columns. The 'datapath'
@@ -38,10 +39,10 @@ shinyServer(function(input, output) {
         time.points <- seq.Date(as.Date("2021-01-01"), by = 1, length.out = 366)
         
         data<-zoo(cbind(symptom1=data$V1, symptom2=data$V2), time.points)
-        autoplot(data, label=T, facets = NULL )+
+        autoplot(data, label=T, facets = NULL)+
             geom_vline(xintercept = as.numeric(as.Date("2021-05-02")), 
                        color = "black", 
-                       linetype=4)+theme_classic() 
+                       linetype=4)+theme_classic() +ggtitle("symptom change over time")
 })
     
     # output$myPlot = renderPlot({

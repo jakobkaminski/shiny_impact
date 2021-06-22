@@ -27,7 +27,7 @@ shinyServer(function(input, output) {
             return(NULL)
         
         read.csv(inFile$datapath, header = input$header)
-    })
+    }, caption="Electronic momentary assesment allows symptom monitoring and evaluation. Day by day smartphone based symptom assesment and a visualisation of the course for the symptomsmight allow a better evaluation of sympotms at a follow-up appointment.")
     
     output$myPlot = renderPlot({   
         inFile <- input$file1

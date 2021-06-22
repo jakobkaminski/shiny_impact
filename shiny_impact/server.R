@@ -10,12 +10,12 @@
 library(shiny)
 library(ggplot2)
 library(zoo)
-
+library(DT)
 # DT::dataTableOutput("table")output$contents <- DT::renderDataTable({ gapminder })
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-    output$contents <- renderTable(caption="raw data as tabular",{
+    output$contents <- DT::renderDataTable({
         # input$file1 will be NULL initially. After the user selects
         # and uploads a file, it will be a data frame with 'name',
         # 'size', 'type', and 'datapath' columns. The 'datapath'

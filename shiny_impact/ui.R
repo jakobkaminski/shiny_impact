@@ -24,9 +24,9 @@ shinyUI(fluidPage(
         ),
         mainPanel("insights from data",
                   fluidRow(
-                        splitLayout(cellWidths = c("30%", "70%"),
+                        splitLayout(cellWidths = c("33%", "33%", "33%"),
                     DT::dataTableOutput("contents"), 
-                    plotOutput("myPlot")))
+                    plotOutput("myPlot"), verbatimTextOutput("myResult")))
             
                 )
                 )

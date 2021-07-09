@@ -5,8 +5,8 @@ account: jkaminski
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 3963345
-bundleId: 4734375
+bundleId: 4803411
 url: https://jkaminski.shinyapps.io/shiny_impact/
-when: 1624122880.93708
+when: 1625839638.85839
 asMultiple: FALSE
 asStatic: FALSE

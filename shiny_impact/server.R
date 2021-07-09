@@ -11,11 +11,13 @@ library(shiny)
 library(ggplot2)
 library(zoo)
 library(DT)
+library(CausalImpact)
+
 # DT::dataTableOutput("table")output$contents <- DT::renderDataTable({ gapminder })
 
 # Define server logic required to draw a histogram
-shinyServer(function(input, output) {
-    output$contents <- DT::renderDataTable({
+shinyServer(function(input, output) 
+    {output$contents <- DT::renderDataTable({
         # input$file1 will be NULL initially. After the user selects
         # and uploads a file, it will be a data frame with 'name',
         # 'size', 'type', and 'datapath' columns. The 'datapath'
@@ -45,12 +47,25 @@ shinyServer(function(input, output) {
                        linetype=4)+theme_classic() +ggtitle("symptom change over time")
 })
     
-    # output$myPlot = renderPlot({
-    #     data = data.frame(x = 1:10, y = runif(10))
-    #     myPlot(ggplot(data, aes(x = x, y = y)) + geom_point())
-    #     data
-    #                             })
-    # 
+     output$myResult = renderPrint({
+         inFile <- input$file1
+         
+         if (is.null(inFile))
+             return(NULL)
+         
+         data<-read.csv(inFile$datapath)
+         time.points <- seq.Date(as.Date("2021-01-01"), by = 1, length.out = 366)
+         
+         data<-zoo(cbind(symptom1=data$V1, symptom2=data$V2), time.points)
+         #define pre and post period
+         pre.period <- as.Date(c("2021-01-01", "2021-05-01"))
+         post.period <- as.Date(c("2021-05-02", "2021-05-15"))
+         #estimate causal impact
+         impact <- CausalImpact(data,  pre.period, post.period)
+         summary(impact, "report")
+         
+    
+                         })
     
                             
 })

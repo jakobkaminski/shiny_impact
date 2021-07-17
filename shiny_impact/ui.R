@@ -5,30 +5,45 @@
 # Find out more about building applications with Shiny here:
 #
 #    http://shiny.rstudio.com/
-#
+# here is the documentationi for the shiny dashboard https://rstudio.github.io/shinydashboard/get_started.html
 
 library(shiny)
+library(shinydashboard)
+library(DT)
 
-# Define UI for application that draws a histogram
-shinyUI(fluidPage(
-    sidebarLayout(
-        sidebarPanel(
-            fileInput("file1", "Choose CSV File",
-                      accept = c(
-                          "text/csv",
-                          "text/comma-separated-values,text/plain",
-                          ".csv")
-            ),
-            tags$hr(),
-            checkboxInput("header", "Header", TRUE)
-        ),
-        mainPanel("insights from data",
-                  fluidRow(
-                        splitLayout(cellWidths = c("33%", "33%", "33%"),
-                    DT::dataTableOutput("contents"), 
-                    plotOutput("myPlot"), verbatimTextOutput("myResult")))
-            
-                )
-                )
-                )
+dashboardPage(skin = "purple",
+    dashboardHeader(title = "Evaluation dashboard"),
+    dashboardSidebar(fileInput("file1", "Choose CSV File",
+        accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv"))),
+    dashboardBody(fluidRow(
+        # box(tableOutput("contents")), 
+        box(plotOutput("myPlot"), width=600)), 
+        fluidRow(box(verbatimTextOutput("myResult"), width = 600
+                     )
+                 )
+        )
     )
+
+# # Define UI for application that draws a histogram
+# shinyUI(fluidPage(
+#     sidebarLayout(
+#         sidebarPanel(
+#             fileInput("file1", "Choose CSV File",
+#                       accept = c(
+#                           "text/csv",
+#                           "text/comma-separated-values,text/plain",
+#                           ".csv")
+#             ),
+#             tags$hr(),
+#             checkboxInput("header", "Header", TRUE)
+#         ),
+#         mainPanel("insights from data",
+#                   fluidRow(
+#                         splitLayout(cellWidths = c("33%", "33%", "33%"),
+#                     DT::dataTableOutput("contents"), 
+#                     plotOutput("myPlot"), verbatimTextOutput("myResult")))
+#             
+#                 )
+#                 )
+#                 )
+#     )

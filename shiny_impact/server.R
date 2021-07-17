@@ -16,20 +16,21 @@ library(CausalImpact)
 # DT::dataTableOutput("table")output$contents <- DT::renderDataTable({ gapminder })
 
 # Define server logic required to draw a histogram
-shinyServer(function(input, output) 
-    {output$contents <- DT::renderDataTable({
-        # input$file1 will be NULL initially. After the user selects
-        # and uploads a file, it will be a data frame with 'name',
-        # 'size', 'type', and 'datapath' columns. The 'datapath'
-        # column will contain the local filenames where the data can
-        # be found.
-        inFile <- input$file1
-        
-        if (is.null(inFile))
-            return(NULL)
-        
-        read.csv(inFile$datapath, header = input$header)
-    }, caption="Electronic momentary assesment allows symptom monitoring and evaluation. Day by day smartphone based symptom assesment and a visualisation of the course for the symptomsmight allow a better evaluation of sympotms at a follow-up appointment.")
+shinyServer(function(input, output) {
+    # output$contents <- renderTable({
+    #     # input$file1 will be NULL initially. After the user selects
+    #     # and uploads a file, it will be a data frame with 'name',
+    #     # 'size', 'type', and 'datapath' columns. The 'datapath'
+    #     # column will contain the local filenames where the data can
+    #     # be found.
+    #     inFile <- input$file1
+    #     
+    #     if (is.null(inFile))
+    #         return(NULL)
+    #     
+    #     table_1<-read.csv(inFile$datapath, header = input$header)
+    #     table_1
+    # }, caption="Electronic momentary assesment allows symptom monitoring and evaluation. Day by day smartphone based symptom assesment and a visualisation of the course for the symptomsmight allow a better evaluation of sympotms at a follow-up appointment.")
     
     output$myPlot = renderPlot({   
         inFile <- input$file1

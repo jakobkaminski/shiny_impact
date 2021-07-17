@@ -13,8 +13,13 @@ library(DT)
 
 dashboardPage(skin = "purple",
     dashboardHeader(title = "Evaluation dashboard"),
-    dashboardSidebar(fileInput("file1", "Choose CSV File",
-        accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv"))),
+    dashboardSidebar(
+        fileInput("file1", "Choose CSV File",
+            accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")),
+        dateInput('date',
+                  label = 'input date of intervention: yyyy-mm-dd',
+                  value = Sys.Date())            
+                    ),
     dashboardBody(fluidRow(
         # box(tableOutput("contents")), 
         box(plotOutput("myPlot"), width=600)), 

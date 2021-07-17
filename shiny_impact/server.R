@@ -34,7 +34,7 @@ shinyServer(function(input, output) {
     
     output$myPlot = renderPlot({   
         inFile <- input$file1
-        
+        inDate <- input$date
         if (is.null(inFile))
             return(NULL)
         
@@ -43,14 +43,15 @@ shinyServer(function(input, output) {
         
         data<-zoo(cbind(symptom1=data$V1, symptom2=data$V2), time.points)
         autoplot(data, label=T, facets = NULL)+
-            geom_vline(xintercept = as.numeric(as.Date("2021-05-02")), 
+            geom_vline(xintercept = as.numeric(inDate), 
                        color = "black", 
                        linetype=4)+theme_classic() +ggtitle("symptom change over time")
 })
     
      output$myResult = renderPrint({
          inFile <- input$file1
-         
+         inDate <- input$date
+         # inDate<-as.numeric(inDate)
          if (is.null(inFile))
              return(NULL)
          
@@ -59,8 +60,8 @@ shinyServer(function(input, output) {
          
          data<-zoo(cbind(symptom1=data$V1, symptom2=data$V2), time.points)
          #define pre and post period
-         pre.period <- as.Date(c("2021-01-01", "2021-05-01"))
-         post.period <- as.Date(c("2021-05-02", "2021-05-15"))
+         pre.period <- c(as.Date("2021-01-01"), inDate)
+         post.period <- c(inDate+ as.difftime(1, unit="days"), as.Date("2021-12-30"))
          #estimate causal impact
          impact <- CausalImpact(data,  pre.period, post.period)
          summary(impact, "report")

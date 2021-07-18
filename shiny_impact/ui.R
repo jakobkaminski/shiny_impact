@@ -16,14 +16,24 @@ dashboardPage(skin = "purple",
     dashboardSidebar(
         fileInput("file1", "Choose CSV File",
             accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")),
-        dateInput('date',
-                  label = 'input date of intervention: yyyy-mm-dd',
-                  value = Sys.Date())            
-                    ),
-    dashboardBody(fluidRow(
-        # box(tableOutput("contents")), 
-        box(plotOutput("myPlot"), width=600)), 
-        fluidRow(box(verbatimTextOutput("myResult"), width = 600
+        # dateInput('date',
+        #           label = 'input date of intervention: yyyy-mm-dd',
+        #           value = Sys.Date())
+        dateRangeInput('predateRange',
+                       label = 'input date for pre-intervention period: yyyy-mm-dd (purple shade in plot)',
+                       start = Sys.Date() - 28, end = Sys.Date() - 14),
+        dateRangeInput('postdateRange',
+                       label = 'input date for post-intervention period: yyyy-mm-dd (turquoise shade in plot)',
+                       start = Sys.Date() - 14, end = Sys.Date())
+                     ),
+    dashboardBody(
+        # fluidRow(
+        # # box(tableOutput("contents")), 
+        #             box(plotOutput("myPlot"), width=600)), 
+        fluidRow(
+            box(plotOutput("nicerPlot"), width=600)),
+                fluidRow(
+                    box(verbatimTextOutput("myResult"), width = 600
                      )
                  )
         )

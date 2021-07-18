@@ -14,26 +14,36 @@ library(DT)
 dashboardPage(skin = "purple",
     dashboardHeader(title = "Evaluation dashboard"),
     dashboardSidebar(
-        fileInput("file1", "Choose CSV File",
+        fileInput("file1", "Choose CSV File to load data",
             accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")),
         # dateInput('date',
         #           label = 'input date of intervention: yyyy-mm-dd',
         #           value = Sys.Date())
         dateRangeInput('predateRange',
-                       label = 'input date for pre-intervention period: yyyy-mm-dd (purple shade in plot)',
+                       label = 'input date range for pre-intervention period: yyyy-mm-dd (purple shade in plot)',
                        start = Sys.Date() - 28, end = Sys.Date() - 14),
         dateRangeInput('postdateRange',
-                       label = 'input date for post-intervention period: yyyy-mm-dd (turquoise shade in plot)',
-                       start = Sys.Date() - 14, end = Sys.Date())
-                     ),
+                       label = 'input date range for post-intervention period: yyyy-mm-dd (turquoise shade in plot)',
+                       start = Sys.Date() - 13, end = Sys.Date()),
+        dateRangeInput('zoomdateRange',
+                   label = 'input date range for field of view of plot: yyyy-mm-dd',
+                   start = Sys.Date() - 200, end = Sys.Date()+200)
+                    ),
+    
     dashboardBody(
         # fluidRow(
         # # box(tableOutput("contents")), 
         #             box(plotOutput("myPlot"), width=600)), 
         fluidRow(
             box(plotOutput("nicerPlot"), width=600)),
-                fluidRow(
-                    box(verbatimTextOutput("myResult"), width = 600
+        fluidRow(
+            # A static infoBox
+            infoBoxOutput("progress1Box"),
+            # Dynamic infoBoxes
+            infoBoxOutput("progressBox"),
+            infoBoxOutput("approvalBox")),
+        fluidRow(
+            box(verbatimTextOutput("myResult"), width = 600
                      )
                  )
         )

@@ -37,17 +37,27 @@ dashboardPage(skin = "purple",
         fluidRow(
             box(plotOutput("nicerPlot"), width=600)),
         fluidRow(
+            box(title="Warning!",
+                width = 600, background = "black",
+                "For research purposes only: we here display simple summary statistics for symptom 1:"
+            )),
+        fluidRow(
             # A static infoBox
             infoBoxOutput("progress1Box"),
             # Dynamic infoBoxes
             infoBoxOutput("progressBox"),
             infoBoxOutput("approvalBox")),
+        box(title="Warning!",
+            width = 600, background = "black",
+            "For research purposes only: we here report summary from impact analysis for target variable symptom 1 and dependent but not affected variable symptom 2:"
+        ),
         fluidRow(
             box(verbatimTextOutput("myResult"), width = 600
                      )
                  )
         )
-    )
+)
+
 
 # # Define UI for application that draws a histogram
 # shinyUI(fluidPage(

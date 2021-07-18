@@ -19,10 +19,11 @@ library(tidyverse)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-    
     my_data <- reactive({
+        validate(
+            need(input$file1 != "", "Please select a data set")
+        )
         inFile <- input$file1
-        if (is.null(inFile)){return(NULL)}else{
                               
                               data<-read.csv(inFile$datapath)
                               time.points <- seq.Date(as.Date("2021-01-01"), by = 1, length.out = 366)
@@ -38,7 +39,7 @@ shinyServer(function(input, output) {
                               # )
                               data_long<-data %>% gather(key="symptom",value="value", `symptom1`,`symptom2`)
                               data_long$day<-as.Date(data_long$day)
-                              return(data_long)}})
+                              return(data_long)})
         my_dates <- reactive({
             inDate <- input$predateRange
             inDatepost <- input$postdateRange
